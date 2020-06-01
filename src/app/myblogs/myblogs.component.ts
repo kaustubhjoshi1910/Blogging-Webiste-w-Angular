@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-myblogs',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyblogsComponent implements OnInit {
 
-  constructor() { }
+  user:any = {};
+  url: string;
+  surl : SafeUrl;
 
-  ngOnInit(): void {
-  }
+
+  constructor(private sanitizer: DomSanitizer) {
+  
+    this.user = firebase.auth().currentUser;
+    this.url=this.user.photoURL;
+    this.surl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+
+    console.log(this.user.displayName)
+    
+      }
+
+    ngOnInit() {
+
+    }
 
 }
