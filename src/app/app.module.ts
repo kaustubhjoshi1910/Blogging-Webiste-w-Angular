@@ -14,7 +14,11 @@ import { AuthService } from './auth.service';
 import { MenuComponent } from './menu/menu.component';
 import { MyblogsComponent } from './myblogs/myblogs.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { CreateComponent } from './create/create.component';
+import { NgxTextEditorModule } from 'ngx-text-editor';
+import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './post/post.component';
+import { ViewComponent } from './view/view.component';
 
 let  firebaseConfig = {
   apiKey: "AIzaSyBlCNoePo6IVLUSC_xhjXF6zxzqD7yOqI0",
@@ -37,13 +41,18 @@ firebase.initializeApp(firebaseConfig);
     CapitalisePipe,
     MenuComponent,
     MyblogsComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateComponent,
+    PostComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxTextEditorModule,
+    HttpClientModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

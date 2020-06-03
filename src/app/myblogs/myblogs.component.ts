@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-myblogs',
@@ -10,23 +11,59 @@ import 'firebase/auth';
 })
 export class MyblogsComponent implements OnInit {
 
-  user:any = {};
   url: string;
   surl : SafeUrl;
+  user: any = {};
+  posts: any[] = [];
 
 
   constructor(private sanitizer: DomSanitizer) {
-  
+
+    firebase.firestore().settings({
+      timestampsInSnapshots: true
+    });
     this.user = firebase.auth().currentUser;
     this.url=this.user.photoURL;
     this.surl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-
+  
     console.log(this.user.displayName)
+    this.getPosts();
+  }
+  
     
-      }
+      
 
     ngOnInit() {
 
     }
 
-}
+    getPosts(){
+      // get the list of posts
+  
+      firebase.firestore().collection("posts")
+      .orderBy("created", "desc")
+      .get().then((querySnapshot) => {
+  
+        console.log(querySnapshot.docs);
+        this.posts = querySnapshot.docs;
+  
+      }).catch((err) => {
+        console.log(err);
+      })
+  
+    }
+  
+    onPostCreated(){
+      // refresh the list of posts
+      this.posts = [];
+      this.getPosts();
+  
+    }
+  
+    onDelete(){
+      // refresh the list of posts
+      this.posts = [];
+      this.getPosts();
+    }
+  
+  } 
