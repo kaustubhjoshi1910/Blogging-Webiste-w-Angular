@@ -19,6 +19,7 @@ import { NgxTextEditorModule } from 'ngx-text-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
 import { ViewComponent } from './view/view.component';
+import { CommentsComponent } from './comments/comments.component';
 
 let  firebaseConfig = {
   apiKey: "AIzaSyBlCNoePo6IVLUSC_xhjXF6zxzqD7yOqI0",
@@ -44,7 +45,8 @@ firebase.initializeApp(firebaseConfig);
     ProfileComponent,
     CreateComponent,
     PostComponent,
-    ViewComponent
+    ViewComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
