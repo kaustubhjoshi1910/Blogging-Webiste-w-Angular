@@ -14,6 +14,7 @@ export class CreateComponent implements OnInit {
   editorConfig: any;
   title: string;
   content: string;
+  checkTitle : boolean = false;
 
   @Output('postCreated') postCreated = new EventEmitter;
 
@@ -50,12 +51,25 @@ export class CreateComponent implements OnInit {
     firebase.firestore().settings({
       timestampsInSnapshots:true
     });
+
+    if(this.title == undefined || this.title.length == 0)
+      {
+        this.checkTitle = true;
+        console.log(this.checkTitle);
+        return;
+        
+      }
+
+      else {
+        this.checkTitle=false;
+        console.log(this.checkTitle);
+      }
     
     firebase.firestore().collection("posts").add({
       title : this.title,
       content : this.content,
       owner : firebase.auth().currentUser.uid,
-      created : firebase.firestore.FieldValue.serverTimestamp
+      created : firebase.firestore.FieldValue.serverTimestamp()
     }).then((data)=>
     {
       console.log(data);

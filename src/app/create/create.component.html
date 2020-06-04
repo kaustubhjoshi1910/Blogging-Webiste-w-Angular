@@ -6,13 +6,17 @@
         <input type="text" class="form-control" id="title" placeholder="Post Title" name="title" [(ngModel)]="title">
       </div>
 
+      <div class="alert alert-danger" *ngIf="checkTitle">
+        Title is required.
+      </div>
+
       <div class="form-group">
         <label>Post Content</label>
         <ngx-text-editor [placeholder]="'Enter text here...'" [config]="editorConfig" [(ngModel)]="content"></ngx-text-editor>
       </div>
 
       <div class="form-group float-right">
-        <button (click)="createPost()" class="btn btn-warning round">Submit</button>
+        <button (click)="createPost()" class="btn btn-warning round" >Submit</button>
       </div>
   
     </div>

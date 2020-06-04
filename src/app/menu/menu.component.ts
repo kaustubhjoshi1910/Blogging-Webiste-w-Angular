@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
   constructor() {
 
     this.user = firebase.auth().currentUser;
+    
     if(this.user) {
       this.loggedIn = true;
     } else {
